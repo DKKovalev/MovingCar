@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity(), MotionContract.View {
 
     override fun onAngleCalculated(newX: Float, newY: Float, angle: Float, bearing: Float) {
         with(v_car) {
+            //Движение по дуге
             rotate(
                 bearing = bearing,
                 interpolator = interpolator
@@ -55,6 +56,20 @@ class MainActivity : AppCompatActivity(), MotionContract.View {
                     interpolator = interpolator
                 )
             ).subscribe()
+
+            /*
+            //Движение "танком"
+            rotate(
+                bearing = bearing,
+                interpolator = interpolator
+            ).andThen(
+                move(
+                    x = newX,
+                    y = newY,
+                    interpolator = interpolator
+                )
+            ).subscribe()
+            */
         }
     }
 }
