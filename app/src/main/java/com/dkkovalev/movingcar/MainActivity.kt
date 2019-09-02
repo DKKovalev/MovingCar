@@ -1,6 +1,7 @@
 package com.dkkovalev.movingcar
 
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.view.MotionEvent
 import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.appcompat.app.AppCompatActivity
@@ -17,6 +18,7 @@ class MainActivity : AppCompatActivity(), MotionContract.View {
     lateinit var presenter: MotionContract.Presenter
 
     private val interpolator = AccelerateDecelerateInterpolator()
+    private val metrics = DisplayMetrics()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,19 +42,22 @@ class MainActivity : AppCompatActivity(), MotionContract.View {
 
             return@setOnTouchListener true
         }
+
+        windowManager.defaultDisplay.getMetrics(metrics)
     }
 
     override fun onAngleCalculated(newX: Float, newY: Float, angle: Float, bearing: Float) {
+
         with(v_car) {
             //Движение по дуге
-            rotate(
-                bearing = bearing,
-                interpolator = interpolator
+           rotate(
+                duration = 300,
+                bearing = bearing
             ).mergeWith(
                 moveByCurve(
+                    duration = 3000,
                     x = newX,
                     y = newY,
-                    angle = angle,
                     interpolator = interpolator
                 )
             ).subscribe()
@@ -71,5 +76,10 @@ class MainActivity : AppCompatActivity(), MotionContract.View {
             ).subscribe()
             */
         }
+
+        draw.setPath(newX, v_car.x, newY, v_car.y)
+        draw.invalidate()
     }
+
+
 }

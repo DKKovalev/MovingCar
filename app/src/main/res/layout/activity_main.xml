@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fl_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:id="@+id/fl_root">
+    tools:context=".MainActivity">
 
-    <View
+    <com.dkkovalev.movingcar.CarView
         android:id="@+id/v_car"
-        android:layout_width="80dp"
-        android:layout_height="50dp"
-        android:background="@color/colorAccent" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <com.dkkovalev.movingcar.DrawView
+        android:id="@+id/draw"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </FrameLayout>
